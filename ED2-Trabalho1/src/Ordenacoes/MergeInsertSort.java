@@ -1,20 +1,32 @@
-package MergeSort;
+package Ordenacoes;
 
-public class MergeSortPadrão {
-    static int op=0;
-    public static <T extends Comparable<T>> int mergesortPadrão(T[] vetor, int inicio, int fim) {
-        int meio;
-        if (inicio < fim - 1) {
-            op++;
-            meio = (inicio + fim) / 2;                      // Calcula onde fica o meio do vetor
-            mergesortPadrão(vetor, inicio, meio);              // Chamada recursiva do inicio do vetor até a metade
-            mergesortPadrão(vetor, meio, fim);                // Chamada recursiva da 2ª parte do vetor (meio+1) até o fim
-            mergePadrão(vetor, inicio, meio, fim);
-        }
+import InsertSort.InsertSort;
+
+public class MergeInsertSort {
+
+    static int op =0; //quantidade de operações realizadas
+    public static <T extends Comparable<T>> int sortInsert(T[] vetor){
+        mergeInsertSort(vetor,0,vetor.length);
         return op;
     }
 
-    public static <T extends Comparable<T>> void mergePadrão(T[] vetor, int inicio, int meio, int fim) {
+    public static <T extends Comparable<T>>  void mergeInsertSort(T[] vetor, int inicio, int fim){
+        int tamanho = fim - inicio;
+        if(tamanho<=15){
+            op = InsertSort.insertSort(vetor,inicio,fim,op);
+        }else{
+            int meio;
+            if(inicio<fim-1){
+                op++;
+                meio = (inicio+fim)/2;                             // Calcula onde fica o meio do vetor
+                mergeInsertSort(vetor,inicio,meio);            // Chamada recursiva do inicio do vetor até a metade
+                mergeInsertSort(vetor,meio,fim);              // Chamada recursiva da 2ª parte do vetor (meio+1) até o fim
+                mergeInsert(vetor,inicio,meio,fim);
+            }
+        }
+    }
+
+    public static <T extends Comparable<T>> void mergeInsert(T[] vetor, int inicio, int meio, int fim) {
         //Cria um vetor temporario para trabalharmos a ordenação.
         //O vetor temporario tem o mesmo tamanho do vetor orginal sendo uma copia do mesmo ordenado.
 
@@ -34,8 +46,7 @@ public class MergeSortPadrão {
             if (vetor[cont1].compareTo(vetor[cont2]) <= 0) {
                 vetorTemporario[i] = vetor[cont1];   //O vetorTemporario recebe o valor da posição cont1 pois é a menor
                 i++;                                //Incrementamos o contador de posição do vetorTemporario.
-                cont1++;
-                op++;//Incrementamos o contador de posição do primeiro subvetor já que o valor foi adicionado ao vetorTemporario.
+                cont1++;op++;                           //Incrementamos o contador de posição do primeiro subvetor já que o valor foi adicionado ao vetorTemporario.
             } else {
                 //O mesmo do acima
                 vetorTemporario[i] = vetor[cont2];
@@ -71,4 +82,5 @@ public class MergeSortPadrão {
             op++;
         }
     }
+
 }

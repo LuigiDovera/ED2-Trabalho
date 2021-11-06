@@ -1,12 +1,12 @@
 // Classe Executavel do Programa
 
 import InsertSort.InsertSort;
-import MergeSort.MergeSort;
+import Ordenacoes.MergeSort;
 import Dados.*;
 import java.lang.Comparable;
-import MergeSort.MergeSortPadrão;
-import MergeSort.MergeInsertSort;
-import MergeSort.MergeSortTestaOrdem;
+import Ordenacoes.MergeSortPadrão;
+import Ordenacoes.MergeInsertSort;
+import Ordenacoes.MergeSortTestaOrdem;
 import Leitura.Leitor;
 
 import java.lang.reflect.Array;

@@ -1,9 +1,9 @@
-package MergeSort;
+package Ordenacoes;
 
 import InsertSort.InsertSort;
 
 public class MergeSortTestaOrdem {
-    static int op=0;
+    static int op=0; //quantidade de operações realizadas
 
     public static <T extends Comparable<T>> int sortInsertTestaOrdem(T[] vetor){
         T[] auxiliar = vetor.clone();

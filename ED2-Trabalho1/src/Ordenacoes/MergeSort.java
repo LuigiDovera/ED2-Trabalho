@@ -1,4 +1,4 @@
-package MergeSort;
+package Ordenacoes;
 
 import Dados.Dado1;
 import InsertSort.InsertSort;
