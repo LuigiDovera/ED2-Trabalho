@@ -13,7 +13,7 @@ public class Leitor {
 
    public static  Dado1[] leitor1(int quantidade){
 
-       File arquivo = new File("Tabela_String_Double.csv");
+       File arquivo = new File("String_Double.csv");
        Dado1[] arr = new Dado1[quantidade];
 
        try{
@@ -35,7 +35,7 @@ public class Leitor {
 
     public static  Dado2[] leitor2(int quantidade){
 
-        File arquivo = new File("Tabela_Double_String.csv");
+        File arquivo = new File("Double_String.csv");
         Dado2[] arr = new Dado2[quantidade];
 
         try{
@@ -57,7 +57,7 @@ public class Leitor {
 
     public static  Dado3[] leitor3(int quantidade){
 
-        File arquivo = new File("Tabela_Int_Vetor.csv");
+        File arquivo = new File("Double_Inteiro.csv");
         Dado3[] arr = new Dado3[quantidade];
 
         try{

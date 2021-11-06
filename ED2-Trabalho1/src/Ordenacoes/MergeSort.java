@@ -9,7 +9,7 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 
 public class MergeSort {
-    static int op=0;
+    static int op=0; //quantidade de operações realizadas
 
     public static <T extends Comparable<T>> int sort(T[] vetor){
         T[] auxiliar = vetor.clone();
