@@ -2,12 +2,19 @@ package InsertSort;
 
 public class InsertSort {
 
-    public static  <T extends Comparable<T>> int insertSort(T[] vetor, int inicio,int fim,int op){
+    public static  <T extends Comparable<T>> int insertSort(T[] vetor, int inicio,int fim,int op, int ordem){
 
        for(int i=inicio;i<fim;i++) {
-           for (int j = i; j > inicio && vetor[j].compareTo(vetor[j - 1]) < 0; j--) {
+           if(ordem == 1){
+            for (int j = i; j > inicio && vetor[j].compareTo(vetor[j - 1]) < 0; j--) {
                troca(vetor, j, j - 1);op++;
            }
+           }else{
+            for (int j = i; j > inicio && vetor[j].compareTo(vetor[j - 1]) > 0; j--) {
+               troca(vetor, j, j - 1);op++;
+           }
+           }
+       
        }
 
        return op;

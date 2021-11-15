@@ -2,19 +2,24 @@ package Ordenacoes;
 
 public class MergeSortPadrão {
     static int op=0; //quantidade de operações realizadas
-    public static <T extends Comparable<T>> int mergesortPadrão(T[] vetor, int inicio, int fim) {
+    
+    public static <T extends Comparable<T>> int sort(T[] vetor, int ordem) {
+        mergesortPadrão(vetor, 0, vetor.length, ordem);
+        return op;
+    }
+    
+    public static <T extends Comparable<T>> void mergesortPadrão(T[] vetor, int inicio, int fim, int ordem) {
         int meio;
         if (inicio < fim - 1) {
             op++;
             meio = (inicio + fim) / 2;                      // Calcula onde fica o meio do vetor
-            mergesortPadrão(vetor, inicio, meio);              // Chamada recursiva do inicio do vetor até a metade
-            mergesortPadrão(vetor, meio, fim);                // Chamada recursiva da 2ª parte do vetor (meio+1) até o fim
-            mergePadrão(vetor, inicio, meio, fim);
+            mergesortPadrão(vetor, inicio, meio,ordem);              // Chamada recursiva do inicio do vetor até a metade
+            mergesortPadrão(vetor, meio, fim,ordem);                // Chamada recursiva da 2ª parte do vetor (meio+1) até o fim
+            mergePadrão(vetor, inicio, meio, fim,ordem);
         }
-        return op;
     }
 
-    public static <T extends Comparable<T>> void mergePadrão(T[] vetor, int inicio, int meio, int fim) {
+    public static <T extends Comparable<T>> void mergePadrão(T[] vetor, int inicio, int meio, int fim, int ordem) {
         //Cria um vetor temporario para trabalharmos a ordenação.
         //O vetor temporario tem o mesmo tamanho do vetor orginal sendo uma copia do mesmo ordenado.
 
@@ -31,7 +36,8 @@ public class MergeSortPadrão {
         //corresponde ao fim do vetor.
         while (cont1 < meio && cont2 < fim) {
             //vetor[cont1]<=vetor[cont2]
-            if (vetor[cont1].compareTo(vetor[cont2]) <= 0) {
+          if(ordem == 1){
+             if (vetor[cont1].compareTo(vetor[cont2]) <= 0) {
                 vetorTemporario[i] = vetor[cont1];   //O vetorTemporario recebe o valor da posição cont1 pois é a menor
                 i++;                                //Incrementamos o contador de posição do vetorTemporario.
                 cont1++;
@@ -42,7 +48,21 @@ public class MergeSortPadrão {
                 i++;
                 cont2++;op++;                        //Incrementamso o contador de posição do segundo subvetor
             }
+            }else{
+                if (vetor[cont1].compareTo(vetor[cont2]) >= 0) {
+                vetorTemporario[i] = vetor[cont1];   //O vetorTemporario recebe o valor da posição cont1 pois é a menor
+                i++;                                //Incrementamos o contador de posição do vetorTemporario.
+                cont1++;
+                op++;//Incrementamos o contador de posição do primeiro subvetor já que o valor foi adicionado ao vetorTemporario.
+            } else {
+                //O mesmo do acima
+                vetorTemporario[i] = vetor[cont2];
+                i++;
+                cont2++;op++;                        //Incrementamso o contador de posição do segundo subvetor
+            }
+            }
         }
+
 
         //Colocando os valores que sobraram no primeiro subarray
         //cont1<meio+1 é o mesmo que dizer que que existem elementos entre inicio e meio+1 que sobraram.

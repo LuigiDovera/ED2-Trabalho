@@ -16,22 +16,24 @@ import java.util.Calendar;
 
 public class Main {
     public static <T extends Comparable<T>> void main(String[] args) {
-    /*
+    
         //----DADO1----------------------------
         Dado1[] arr1_30000 = Leitor.leitor1(30000);
 
         System.out.println("Ordem Inicial Vetor com 30000 elementos\n\n");
         for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave());
+            System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave() + ", " + arr1_30000[i].getValor());
         System.out.println("...\n\n");
 
-        MergeSort.sort(arr1_30000);
+        MergeSort.sort(arr1_30000,-1);
+        //MergeSortPadrão.sort(arr1_30000,-1);
+        
         System.out.println("Após Chamado do MergeSort otimizado\n\n");
         for (int i = 0; i < 10; i++)
             System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave());
         System.out.println("...");
 
-
+        /*
         //----DADO2----------------------------
         Dado2[] arr2_30000 = Leitor.leitor2(30000);
 
@@ -46,7 +48,7 @@ public class Main {
             System.out.println("Vetor[" + i + "]= " + arr2_30000[i].getChave());
         System.out.println("...");
         */
- /*  */
+ /*  
         //----DADO3----------------------------
         Dado3[] arr3_30000 = Leitor.leitor3(30000);
 
@@ -108,6 +110,7 @@ public class Main {
         System.out.println(elapsed+"ms");
         System.out.println("Operacos:" +o);
         System.out.println("\n");
+*/
     }
 
 
