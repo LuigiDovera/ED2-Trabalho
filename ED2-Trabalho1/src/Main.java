@@ -5,8 +5,7 @@ import Ordenacoes.MergeSort;
 import Dados.*;
 import java.lang.Comparable;
 import Ordenacoes.MergeSortPadrão;
-import Ordenacoes.MergeInsertSort;
-import Ordenacoes.MergeSortTestaOrdem;
+import Ordenacoes.QuickSort;
 import Leitura.Leitor;
 
 import java.lang.reflect.Array;
@@ -25,9 +24,9 @@ public class Main {
             System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave() + ", " + arr1_30000[i].getValor());
         System.out.println("...\n\n");
 
-        MergeSort.sort(arr1_30000,-1);
+        //MergeSort.sort(arr1_30000,1);
         //MergeSortPadrão.sort(arr1_30000,-1);
-        
+        QuickSort.sort(arr1_30000,1);
         System.out.println("Após Chamado do MergeSort otimizado\n\n");
         for (int i = 0; i < 10; i++)
             System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave());

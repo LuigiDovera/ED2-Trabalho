@@ -20,7 +20,7 @@ public class MergeSort {
     public static <T extends Comparable<T>>  void mergesort(T[] vetor,T[] auxiliar, int inicio, int fim, int ordem){
         int tamanho = fim - inicio;
         if(tamanho<=15){
-            op=InsertSort.insertSort(auxiliar,inicio,fim,op,ordem);
+            op +=InsertSort.insertSort(auxiliar,inicio,fim,op,ordem);
         }else{
             int meio;
             if(inicio<fim-1){
