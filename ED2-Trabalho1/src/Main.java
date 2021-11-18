@@ -1,11 +1,9 @@
 // Classe Executavel do Programa
 
 import InsertSort.InsertSort;
-import Ordenacoes.MergeSort;
+import Ordenacoes.*;
 import Dados.*;
 import java.lang.Comparable;
-import Ordenacoes.MergeSortPadrão;
-import Ordenacoes.QuickSort;
 import Leitura.Leitor;
 
 import java.lang.reflect.Array;
@@ -15,101 +13,78 @@ import java.util.Calendar;
 
 public class Main {
     public static <T extends Comparable<T>> void main(String[] args) {
+      
+        treeSort(30000, 1);
+        
+    }
     
-        //----DADO1----------------------------
-        Dado1[] arr1_30000 = Leitor.leitor1(30000);
+    public <T extends Comparable<T>> void quicksort(int tamanho, int ordem){
+        
+        Dado1[] arr = Leitor.leitor1(tamanho);
+        
 
-        System.out.println("Ordem Inicial Vetor com 30000 elementos\n\n");
+        System.out.println("Ordem Inicial Vetor com "+ tamanho +" elementos\n\n");
         for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave() + ", " + arr1_30000[i].getValor());
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave() + ", " + arr[i].getValor());
         System.out.println("...\n\n");
 
-        //MergeSort.sort(arr1_30000,1);
-        //MergeSortPadrão.sort(arr1_30000,-1);
-        QuickSort.sort(arr1_30000,1);
+        //MergeSort.sort(arr,1);
+        //MergeSortPadrão.sort(arr,-1);
+        QuickSort.sort(arr, ordem);
         System.out.println("Após Chamado do MergeSort otimizado\n\n");
         for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave());
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
         System.out.println("...");
+    }
+    
+    public <T extends Comparable<T>> void mergeInsertSort(int tamanho, int ordem){
+        Dado1[] arr = Leitor.leitor1(tamanho);
+        
 
-        /*
-        //----DADO2----------------------------
-        Dado2[] arr2_30000 = Leitor.leitor2(30000);
-
-        System.out.println("Ordem Inicial Vetor com 30000 elementos\n\n");
+        System.out.println("Ordem Inicial Vetor com "+ tamanho +" elementos\n\n");
         for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr2_30000[i].getChave());
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
         System.out.println("...\n\n");
 
-        MergeSort.sort(arr2_30000);
+        MergeSort.sort(arr, ordem);
         System.out.println("Após Chamado do MergeSort otimizado\n\n");
         for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr2_30000[i].getChave());
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
         System.out.println("...");
-        */
- /*  
-        //----DADO3----------------------------
-        Dado3[] arr3_30000 = Leitor.leitor3(30000);
+        
+    }
+    
+    public <T extends Comparable<T>> void mergeSort(int tamanho, int ordem){
+        
+        Dado3[] arr = Leitor.leitor3(tamanho);
 
-        System.out.println("Ordem Inicial Vetor com 30000 elementos\n\n");
+        System.out.println("Ordem Inicial Vetor com "+tamanho+" elementos\n\n");
         for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr3_30000[i].getChave());
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
         System.out.println("...\n\n");
 
-        MergeSort.sort(arr3_30000);
+        MergeSortPadrão.sort(arr, ordem);
 
         System.out.println("Após Chamado do MergeSort otimizado\n\n");
         for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr3_30000[i].getChave());
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
         System.out.println("...");
+    }
+    
+    public static <T extends Comparable<T>> void treeSort(int tamanho, int ordem){
+        Dado1[] arr = Leitor.leitor1(tamanho);
+        TreeSort ts = new TreeSort();
+        
+        System.out.println("Ordem Inicial Vetor com "+tamanho+" elementos\n\n");
+        for (int i = 0; i < 10; i++)
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
+        System.out.println("...\n\n");
 
-          //--TESTES DE TEMPO
-        long o;
-        System.out.println("10:");
-        Dado2[] arr10_ = Leitor.leitor2(10);
-        long start = System.currentTimeMillis();
-        o = MergeSortTestaOrdem.sortInsertTestaOrdem(arr10_);
-        long elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
+        ts.treeins(arr);
 
-        System.out.println("100:");
-        Dado2[] arr100_ = Leitor.leitor2(100);
-        start = System.currentTimeMillis();
-        o = MergeSortTestaOrdem.sortInsertTestaOrdem(arr100_);
-        elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
-
-        System.out.println("1000:");
-        Dado2[] arr1000_ = Leitor.leitor2(1000);
-        start = System.currentTimeMillis();
-        o = MergeSortTestaOrdem.sortInsertTestaOrdem(arr1000_);
-        elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
-
-        System.out.println("10000:");
-        Dado2[] arr10000_ = Leitor.leitor2(10000);
-        start = System.currentTimeMillis();
-        o= MergeSortTestaOrdem.sortInsertTestaOrdem(arr10000_);
-        elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
-
-        System.out.println("30000:");
-        Dado2[] arr30000_ = Leitor.leitor2(30000);
-        start = System.currentTimeMillis();
-        o=MergeSortTestaOrdem.sortInsertTestaOrdem(arr30000_);
-        elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
-*/
+        System.out.println("Após Chamado do MergeSort otimizado\n\n");
+        ts.inorderRec(ts.getRoot());
+        System.out.println("...");
     }
 
 
