@@ -12,104 +12,173 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class Main {
     public static <T extends Comparable<T>> void main(String[] args) {
-    
-        //----DADO1----------------------------
-        Dado1[] arr1_30000 = Leitor.leitor1(30000);
+        long start, elapsed;
+        List<Long> timer = new ArrayList<Long>();
+        List<Integer> sizes = new ArrayList<Integer>();
+        sizes.add(1000);
+        sizes.add(10000);
+        sizes.add(100000);
+        sizes.add(500000);
+        sizes.add(1000000);
+        boolean verbose = false;
+        Integer Batch_size = 1;
+        List<String> lista = new ArrayList<String>();
+        lista.add("MergeSortPadrao");
+        lista.add("MergeSort");
+        lista.add("QuickSort");
+        int Operacoes=0;
+        
+        System.out.println("Batch Size: " + Batch_size);
+        for(String Metodo : lista){
+            System.out.println("Metodo " + Metodo);
+            for (int size = 0;size<sizes.size();size++){
+            
+            Dado1[] arr1 = Leitor.leitor1(sizes.get(size));
+            System.out.println("VETOR COM "+ sizes.get(size) + " Elementos");
 
-        System.out.println("Ordem Inicial Vetor com 30000 elementos\n\n");
-        for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave() + ", " + arr1_30000[i].getValor());
-        System.out.println("...\n\n");
+            //----DADO1----------------------------
+            if(verbose){
+             System.out.println("----DADO1----------------------------\n");
+             for (int i = 0; i < 10; i++)
+                 System.out.println("Vetor[" + i + "]= " + arr1[i].getChave() + ", " + arr1[i].getValor());
+             System.out.println("...\n\n");
+            }
+            if( null!=Metodo)switch (Metodo) {
+                    case "MergeSortPadrao":
+                        Operacoes = MergeSortPadrão.sort(arr1,1);
+                        break;
+                    case "MergeSort":
+                        Operacoes = MergeSort.sort(arr1,1);
+                        break;
+                    case "QuickSort":
+                        Operacoes = QuickSort.sort(arr1, 1);
+                        break;
+                    default:
+                        break;
+                }
+            System.out.println("Operacoes: " + Operacoes);
+            if(verbose){  
+             System.out.println("----DADO1----------------------------\n");
+             for (int i = 0; i < 10; i++)
+                 System.out.println("Vetor[" + i + "]= " + arr1[i].getChave() + ", " + arr1[i].getValor());
+             System.out.println("...\n\n");
+            }
+            
+            for(int i=0; i<Batch_size;i++){
+                arr1 = Leitor.leitor1(sizes.get(size));
+                start = System.currentTimeMillis();
+            if(Metodo=="MergeSortPadrao"){
+                MergeSortPadrão.sort(arr1,1);
+            }else if(Metodo == "MergeSort"){
+                MergeSort.sort(arr1,1);
+            }
+            else if(Metodo == "QuickSort"){
+                QuickSort.sort(arr1, 1);
+            }
+                elapsed = System.currentTimeMillis() - start;
+                timer.add(elapsed);
+            }
 
-        //MergeSort.sort(arr1_30000,1);
-        //MergeSortPadrão.sort(arr1_30000,-1);
-        QuickSort.sort(arr1_30000,1);
-        System.out.println("Após Chamado do MergeSort otimizado\n\n");
-        for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr1_30000[i].getChave());
-        System.out.println("...");
 
-        /*
-        //----DADO2----------------------------
-        Dado2[] arr2_30000 = Leitor.leitor2(30000);
+            System.out.printf("<Dado1>Média Aritimética: %.3f ms +-(%.3f) %n",(Utils.mediaAritimetica(timer)),(Utils.variancia(timer)));
 
-        System.out.println("Ordem Inicial Vetor com 30000 elementos\n\n");
-        for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr2_30000[i].getChave());
-        System.out.println("...\n\n");
 
-        MergeSort.sort(arr2_30000);
-        System.out.println("Após Chamado do MergeSort otimizado\n\n");
-        for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr2_30000[i].getChave());
-        System.out.println("...");
-        */
- /*  
-        //----DADO3----------------------------
-        Dado3[] arr3_30000 = Leitor.leitor3(30000);
+            Dado2[] arr2 = Leitor.leitor2(sizes.get(size));
 
-        System.out.println("Ordem Inicial Vetor com 30000 elementos\n\n");
-        for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr3_30000[i].getChave());
-        System.out.println("...\n\n");
+            timer.clear();
+            if(verbose){
+             //----DADO2----------------------------
+             System.out.println("----DADO2----------------------------\n");
+             for (int i = 0; i < 10; i++)
+                 System.out.println("Vetor[" + i + "]= " + arr2[i].getChave() + ", " + arr2[i].getValor());
+             System.out.println("...\n\n");
+            }
+            if(Metodo=="MergeSortPadrao"){
+                MergeSortPadrão.sort(arr1,1);
+            }else if(Metodo == "MergeSort"){
+                MergeSort.sort(arr1,1);
+            }
+            else if(Metodo == "QuickSort"){
+                QuickSort.sort(arr1, 1);
+            }
+            if(verbose){
+             System.out.println("----DADO2----------------------------\n");
+             for (int i = 0; i < 10; i++)
+                 System.out.println("Vetor[" + i + "]= " + arr2[i].getChave() + ", " + arr2[i].getValor());
+             System.out.println("...\n\n");
+            }
 
-        MergeSort.sort(arr3_30000);
+            for(int i=0; i<Batch_size;i++){
+                arr2 = Leitor.leitor2(sizes.get(size));
+                start = System.currentTimeMillis();
+                if(Metodo=="MergeSortPadrao"){
+                    MergeSortPadrão.sort(arr1,1);
+                }else if(Metodo == "MergeSort"){
+                    MergeSort.sort(arr1,1);
+                }
+                else if(Metodo == "QuickSort"){
+                    QuickSort.sort(arr1, 1);
+                }
+                elapsed = System.currentTimeMillis() - start;
+                timer.add(elapsed);
+            }
 
-        System.out.println("Após Chamado do MergeSort otimizado\n\n");
-        for (int i = 0; i < 10; i++)
-            System.out.println("Vetor[" + i + "]= " + arr3_30000[i].getChave());
-        System.out.println("...");
+            System.out.printf("<Dado2>Média Aritimética: %.3f ms +-(%.3f) %n",(Utils.mediaAritimetica(timer)),(Utils.variancia(timer)));
 
-          //--TESTES DE TEMPO
-        long o;
-        System.out.println("10:");
-        Dado2[] arr10_ = Leitor.leitor2(10);
-        long start = System.currentTimeMillis();
-        o = MergeSortTestaOrdem.sortInsertTestaOrdem(arr10_);
-        long elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
 
-        System.out.println("100:");
-        Dado2[] arr100_ = Leitor.leitor2(100);
-        start = System.currentTimeMillis();
-        o = MergeSortTestaOrdem.sortInsertTestaOrdem(arr100_);
-        elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
 
-        System.out.println("1000:");
-        Dado2[] arr1000_ = Leitor.leitor2(1000);
-        start = System.currentTimeMillis();
-        o = MergeSortTestaOrdem.sortInsertTestaOrdem(arr1000_);
-        elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
 
-        System.out.println("10000:");
-        Dado2[] arr10000_ = Leitor.leitor2(10000);
-        start = System.currentTimeMillis();
-        o= MergeSortTestaOrdem.sortInsertTestaOrdem(arr10000_);
-        elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
+            Dado3[] arr3 = Leitor.leitor3(sizes.get(size));
+            timer.clear();
+            if(verbose){
+             //----DADO3----------------------------
+             System.out.println("----DADO3----------------------------\n");
+             for (int i = 0; i < 10; i++)
+                 System.out.println("Vetor[" + i + "]= " + arr3[i].getChave() + ", " + arr3[i].getValor());
+             System.out.println("...\n\n");
+            }
+            if(Metodo=="MergeSortPadrao"){
+                MergeSortPadrão.sort(arr1,1);
+            }else if(Metodo == "MergeSort"){
+                MergeSort.sort(arr1,1);
+            }
+            else if(Metodo == "QuickSort"){
+                QuickSort.sort(arr1, 1);
+            }
+                   
+            if(verbose){
+             System.out.println("----DADO3----------------------------\n");
+             for (int i = 0; i < 10; i++)
+                 System.out.println("Vetor[" + i + "]= " + arr3[i].getChave() + ", " + arr3[i].getValor());
+             System.out.println("...\n\n");
+            }
 
-        System.out.println("30000:");
-        Dado2[] arr30000_ = Leitor.leitor2(30000);
-        start = System.currentTimeMillis();
-        o=MergeSortTestaOrdem.sortInsertTestaOrdem(arr30000_);
-        elapsed = System.currentTimeMillis() -start;
-        System.out.println(elapsed+"ms");
-        System.out.println("Operacos:" +o);
-        System.out.println("\n");
-*/
+
+            for(int i=0; i<Batch_size;i++){
+               arr3 = Leitor.leitor3(sizes.get(size));
+               start = System.currentTimeMillis();
+            if(Metodo=="MergeSortPadrao"){
+                MergeSortPadrão.sort(arr1,1);
+            }else if(Metodo == "MergeSort"){
+                MergeSort.sort(arr1,1);
+            }
+            else if(Metodo == "QuickSort"){
+                QuickSort.sort(arr1, 1);
+            }
+                elapsed = System.currentTimeMillis() - start;
+                timer.add(elapsed);
+            }
+            System.out.printf("<Dado3>Média Aritimética: %.3f ms +-(%.3f) %n",(Utils.mediaAritimetica(timer)),(Utils.variancia(timer)));
+
+        }   
+        
+           
+        }
+ 
     }
 
 
