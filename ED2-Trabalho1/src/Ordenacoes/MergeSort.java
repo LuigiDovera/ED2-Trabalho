@@ -9,22 +9,22 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 
 public class MergeSort {
-    static int op=0; //quantidade de operações realizadas
+    static long op=0; //quantidade de operações realizadas
 
-    public static <T extends Comparable<T>> int sort(T[] vetor, int ordem){
+    public static <T extends Comparable<T>> long sort(T[] vetor, int ordem){
         T[] auxiliar = vetor.clone();
         mergesort(auxiliar,vetor,0,vetor.length,ordem);
         return op;
     }
 
     public static <T extends Comparable<T>>  void mergesort(T[] vetor,T[] auxiliar, int inicio, int fim, int ordem){
-        int tamanho = fim - inicio; op++;
+        int tamanho = fim - inicio;
         if(tamanho<=15){
-            op +=InsertSort.insertSort(auxiliar,inicio,fim,op,ordem);
+            op = InsertSort.insertSort(auxiliar,inicio,fim,op,ordem);
         }else{
             int meio;
             if(inicio<fim-1){
-                meio = (inicio+fim)/2;op++;                                 // Calcula onde fica o meio do vetor
+                meio = (inicio+fim)/2;                               // Calcula onde fica o meio do vetor
                 mergesort(auxiliar, vetor, inicio, meio,ordem);            // Chamada recursiva do inicio do vetor até a metade
                 mergesort(auxiliar, vetor, meio, fim, ordem);              // Chamada recursiva da 2ª parte do vetor (meio+1) até o fim
                 
@@ -54,8 +54,8 @@ public class MergeSort {
     }
 
    private static <T extends Comparable<T>> void merge(T[] vetor, T[] auxiliar, int inicio,int meio, int fim,int ordem){
-       int cont1=inicio; op++;//Contador do primeiro subvetor
-       int cont2=meio;   op++;//Contador do segundo subvetor
+       int cont1=inicio; //Contador do primeiro subvetor
+       int cont2=meio;  //Contador do segundo subvetor
        
        if(ordem==1){
         for(int k=inicio;k<fim;k++){                 //Percorrendo do inicio ao fim do vetor

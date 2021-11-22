@@ -13,9 +13,9 @@ import java.util.Random;
  * @author Matheus
  */
 public class QuickSort {
-    static int op = 0;
+    static long op = 0;
     
-    public static <T extends Comparable<T>> int sort(T[] vetor, int ordem){
+    public static <T extends Comparable<T>> long sort(T[] vetor, int ordem){
         quickSort(vetor,0,vetor.length, ordem);
         return op;
     }
@@ -23,7 +23,7 @@ public class QuickSort {
     public static <T extends Comparable<T>> void quickSort(T[] vetor, int inicio, int fim, int ordem){
         int tamanho = fim - inicio;op++;
         if (tamanho <= 15){
-            op += InsertSort.insertSort(vetor,inicio,fim,op,ordem);
+            op = InsertSort.insertSort(vetor,inicio,fim,op,ordem);
         }else{
             if (inicio < fim - 1){
                 int posicaoPivo = particiona(vetor, inicio, fim-1, ordem, true);

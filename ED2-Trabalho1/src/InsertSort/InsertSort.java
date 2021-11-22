@@ -2,7 +2,7 @@ package InsertSort;
 
 public class InsertSort {
 
-    public static  <T extends Comparable<T>> int insertSort(T[] vetor, int inicio,int fim,int op, int ordem){
+    public static  <T extends Comparable<T>> long insertSort(T[] vetor, int inicio,int fim,long op, int ordem){
 
        for(int i=inicio;i<fim;i++) {
            if(ordem == 1){
