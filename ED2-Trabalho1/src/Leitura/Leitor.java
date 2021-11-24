@@ -43,7 +43,7 @@ public class Leitor {
 
             String linhas = new String();
             linhas = leitor.nextLine();
-
+            
             for(int i=0;i<quantidade;i++){
                 linhas = leitor.nextLine();
                 String[] linha = linhas.split(",");
@@ -65,17 +65,14 @@ public class Leitor {
 
             String linhas = new String();
             String linha2 = new String();
+            
             int[] vetor = new int[30];
+            linhas = leitor.nextLine();
+            
             for(int i=0;i<quantidade;i++){
                 linhas = leitor.nextLine();
                 String[] linha = linhas.split(",");
-                for(int j=0;j<30;j++){
-                    vetor = new int[30];
-                    linha2 = leitor.nextLine();
-                    String[] linhavet = linhas.split(",");
-                    vetor[j] = Integer.parseInt(linhavet[1]);
-                }
-                Dado3 objeto = new Dado3(Integer.parseInt(linha[1]),vetor);
+                Dado3 objeto = new Dado3(Double.parseDouble(linha[0]), Integer.parseInt(linha[1]));
                 arr[i] = objeto;
             }
         }catch (FileNotFoundException e){

@@ -1,27 +1,27 @@
 package Dados;
 
 public class Dado3 implements Comparable<Dado3>{
-    private int chave;
-    private int[] valor;
+    private Double chave;
+    private int valor;
 
-    public Dado3(int chave, int[] valor) {
+    public Dado3(Double chave, int valor) {
         this.chave = chave;
         this.valor = valor;
     }
 
-    public int getChave() {
+    public Double getChave() {
         return chave;
     }
 
-    public void setChave(int chave) {
+    public void setChave(Double chave) {
         this.chave = chave;
     }
 
-    public int[] getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public void setValor(int[] valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
     

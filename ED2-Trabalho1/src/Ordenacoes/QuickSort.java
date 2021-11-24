@@ -13,17 +13,17 @@ import java.util.Random;
  * @author Matheus
  */
 public class QuickSort {
-    static int op = 0;
+    static long op = 0;
     
-    public static <T extends Comparable<T>> int sort(T[] vetor, int ordem){
+    public static <T extends Comparable<T>> long sort(T[] vetor, int ordem){
         quickSort(vetor,0,vetor.length, ordem);
         return op;
     }
     
     public static <T extends Comparable<T>> void quickSort(T[] vetor, int inicio, int fim, int ordem){
-        int tamanho = fim - inicio;
+        int tamanho = fim - inicio;op++;
         if (tamanho <= 15){
-            op += InsertSort.insertSort(vetor,inicio,fim,op,ordem);
+            op = InsertSort.insertSort(vetor,inicio,fim,op,ordem);
         }else{
             if (inicio < fim - 1){
                 int posicaoPivo = particiona(vetor, inicio, fim-1, ordem, true);
@@ -38,12 +38,12 @@ public class QuickSort {
     private static <T extends Comparable<T>> int particiona(T[] vetor, int inicio, int fim, int ordem, boolean randomizePivo){
         T pivo;
         if(randomizePivo){
-            pivo = vetor[getRandomNumberInRange(inicio,fim)];
+            pivo = vetor[getRandomNumberInRange(inicio,fim)];op++;
         }else{
-            pivo = vetor[inicio];
+            pivo = vetor[inicio];op++;
         }
         
-        int i = inicio +1, f = fim;
+        int i = inicio +1, f = fim;op+=2;
         
         while(i <= f){
             if(ordem == 1){
@@ -61,7 +61,7 @@ public class QuickSort {
                     vetor[f] = troca;
                     i++;
                     f--;
-                    op++;
+                    op+=3;
                 }
             }else{
                 if(vetor[i].compareTo(pivo) >= 0){
@@ -78,12 +78,12 @@ public class QuickSort {
                     vetor[f] = troca;
                     i++;
                     f--;
-                    op++;
+                    op+=3;
                 }
             }
         }
-        vetor[inicio] = vetor[f];
-        vetor[f] = pivo;
+        vetor[inicio] = vetor[f]; op++;
+        vetor[f] = pivo; op++;
         return f;
     }
     
@@ -94,7 +94,7 @@ public class QuickSort {
                     throw new IllegalArgumentException("max must be greater than min");
             }
 
-            Random r = new Random();
+            Random r = new Random();op++;
             return r.nextInt((max - min) + 1) + min;
     }
 }
