@@ -62,5 +62,10 @@ public class Dado1 implements Comparable<Dado1>{
         }
     }
 
+    @Override
+    public String toString() {
+        return "key = "+this.chave +"; value:" +this.valor;
+    }
 
+    
 }

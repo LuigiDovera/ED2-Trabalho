@@ -41,6 +41,10 @@ public class Dado2 implements Comparable<Dado2>{
         else
             return 1;                                          
     }
+    
+    public String toString() {
+        return "key = "+this.chave +"; value:" +this.valor;
+    }
 
 
     }

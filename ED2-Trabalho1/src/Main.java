@@ -14,7 +14,7 @@ import java.util.Calendar;
 public class Main {
     public static <T extends Comparable<T>> void main(String[] args) {
       
-        treeSort(30000, 1);
+        treeSort(10, 2);
         
     }
     
@@ -31,14 +31,14 @@ public class Main {
         //MergeSort.sort(arr,1);
         //MergeSortPadrão.sort(arr,-1);
         QuickSort.sort(arr, ordem);
-        System.out.println("Após Chamado do MergeSort otimizado\n\n");
+        System.out.println("Após Chamado do Quicksort otimizado\n\n");
         for (int i = 0; i < 10; i++)
             System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
         System.out.println("...");
     }
     
     public <T extends Comparable<T>> void mergeInsertSort(int tamanho, int ordem){
-        Dado1[] arr = Leitor.leitor1(tamanho);
+        Dado2[] arr = Leitor.leitor2(tamanho);
         
 
         System.out.println("Ordem Inicial Vetor com "+ tamanho +" elementos\n\n");
@@ -47,7 +47,7 @@ public class Main {
         System.out.println("...\n\n");
 
         MergeSort.sort(arr, ordem);
-        System.out.println("Após Chamado do MergeSort otimizado\n\n");
+        System.out.println("Após Chamado do Merge-Insert Sort otimizado\n\n");
         for (int i = 0; i < 10; i++)
             System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
         System.out.println("...");
@@ -56,7 +56,7 @@ public class Main {
     
     public <T extends Comparable<T>> void mergeSort(int tamanho, int ordem){
         
-        Dado3[] arr = Leitor.leitor3(tamanho);
+        Dado2[] arr = Leitor.leitor2(tamanho);
 
         System.out.println("Ordem Inicial Vetor com "+tamanho+" elementos\n\n");
         for (int i = 0; i < 10; i++)
@@ -72,18 +72,20 @@ public class Main {
     }
     
     public static <T extends Comparable<T>> void treeSort(int tamanho, int ordem){
-        Dado1[] arr = Leitor.leitor1(tamanho);
+        Dado2[] arr = Leitor.leitor2(tamanho);
         TreeSort ts = new TreeSort();
         
         System.out.println("Ordem Inicial Vetor com "+tamanho+" elementos\n\n");
         for (int i = 0; i < 10; i++)
             System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
         System.out.println("...\n\n");
-
-        ts.treeins(arr);
-
-        System.out.println("Após Chamado do MergeSort otimizado\n\n");
-        ts.inorderRec(ts.getRoot());
+        
+        
+        ts.inserirArray(arr, ordem);
+        
+        System.out.println("Após Chamado do Tree Sort\n\n");
+        ts.inordemPrint(ts.getRoot());
+        
         System.out.println("...");
     }
 

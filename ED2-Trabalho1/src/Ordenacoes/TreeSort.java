@@ -1,27 +1,27 @@
 package Ordenacoes;
 
 public class TreeSort
-{
+{   
+    int ordem;
+    int op = 0;
  
-    // Class containing left and
-    // right child of current
-    // node and key value
-    class Node <Object extends Comparable<Object>>
+    //Classe nó
+    class  Node <Object extends Comparable<Object>>  
     {
-        Object key;
-        Node left, right;
+        Object objeto;
+        Node esq, dir;
+        
+        
  
         public Node(Object item)
         {
-            key = item;
-            left = right = null;
+            objeto = item;
+            esq = dir = null;
         }
     }
  
-    // Root of BST
     private Node root;
  
-    // Constructor
     public TreeSort()
     {
         root = null;
@@ -30,67 +30,114 @@ public class TreeSort
     public Node getRoot(){
         return root;
     }
+    
+    public int getOperacoes(){
+        return op;
+    }
  
-    // This method mainly
-    // calls insertRec()
-    private <T extends Comparable<T>> void insert(T key)
+    
+    private <T extends Comparable<T>> void inserir(T chave, int ordem)
     {
-        root = insertRec(root, key);
+        if (ordem == 1)
+            root = inserirNodeCrescente(root, chave);
+        else
+            root = inserirNodeDecrescente(root, chave);
     }
      
-    /* A recursive function to
-    insert a new key in BST */
-    private <T extends Comparable<T>> Node insertRec(Node root, T key)
+    
+    
+    //Realiza a inserção na árvore binária, de forma a deixá-la ordenada
+    private <T extends Comparable<T>> Node inserirNodeCrescente(Node node, T chave)
     {
  
-        /* If the tree is empty,
-        return a new node */
-        if (root == null)
+        //Inserir nó na raiz da árvore se a mesma estiver
+        if (node == null)
         {
-            root = new Node(key);
-            return root;
+            node = new Node(chave);
+            return node;
         }
  
         /* Otherwise, recur
         down the tree */
-        if (root.key.compareTo(key)>=0)
-            root.left = insertRec(root.left, key);
+        
+        if (node.objeto.compareTo(chave) >= 0)
+            node.esq = inserirNodeCrescente(node.esq, chave);
         else
-            root.right = insertRec(root.right, key);
- 
+            node.dir = inserirNodeCrescente(node.dir, chave);
+        
+        op++;
         /* return the root */
-        return root;
+        return node;
     }
+    
+    private <T extends Comparable<T>> Node inserirNodeDecrescente(Node node, T chave)
+    {
+ 
+        //Inserir nó na raiz da árvore se a mesma estiver
+        if (node == null)
+        {
+            node = new Node(chave);
+            return node;
+        }
+ 
+        /* Otherwise, recur
+        down the tree */
+        
+        if (node.objeto.compareTo(chave) < 0)
+            node.esq = inserirNodeDecrescente(node.esq, chave);
+        else
+            node.dir = inserirNodeDecrescente(node.dir, chave);
+        
+        op++;
+        /* return the root */
+        return node;
+    }
+    
      
-    // A function to do
-    // inorder traversal of BST
-    public void inorderRec(Node root)
+    public void inordemPrint(Node root)
     {
         if (root != null)
         {
-            inorderRec(root.left);
-            System.out.print(root.key + " ");
-            inorderRec(root.right);
+            inordemPrint(root.esq);
+            System.out.println(root.objeto.toString());
+            inordemPrint(root.dir);
         }
     }
     
-    public <T extends Comparable <T>> void treeins(T arr[])
+    public <T extends Comparable <T>> void inordemArray(Node root, T arr[], int i)
     {
+        if (root != null)
+        {
+            inordemArray(root.esq, arr, i);
+            arr[i] = (T) root.objeto;
+            i++;
+            inordemArray(root.dir, arr, i);
+        }
+    }
+    
+    public <T extends Comparable <T>> T[] salvarArray(T arr[])
+    {   
+        T[] arr2 = arr.clone();
+        
+        for(int i=0; i<arr2.length; i++){
+            arr2[i] = null;
+        }
+        
+        int i = 0;
+        this.inordemArray(this.root, arr2, i);
+        return arr2;
+    }
+    
+    
+    
+    public <T extends Comparable <T>> void inserirArray(T arr[], int ordem)
+    {   
+        this.ordem = ordem; //ordem = 1 -> crescente
         for(int i = 0; i < arr.length; i++)
         {
-            insert(arr[i]);
+            inserir(arr[i], ordem);
         }
          
     }
- 
-    /*
-    public static <T extends Comparable<T>> void main(String[] args)
-    {
-        TreeSort tree = new TreeSort();
-        T arr[] = {5, 4, 7, 2, 11};
-        tree.treeins(arr);
-        tree.inorderRec(tree.root);
-    }
-    */
 }
  

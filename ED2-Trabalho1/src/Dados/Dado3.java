@@ -41,4 +41,8 @@ public class Dado3 implements Comparable<Dado3>{
         else
             return 1;                                          
     }
+    
+    public String toString() {
+        return "key = "+this.chave +"; value:" +this.valor;
+    }
 }
