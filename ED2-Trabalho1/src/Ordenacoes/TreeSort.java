@@ -3,7 +3,7 @@ package Ordenacoes;
 public class TreeSort
 {   
     int ordem;
-    int op = 0;
+    public int op = 0;
  
     //Classe nó
     class  Node <Object extends Comparable<Object>>  
@@ -31,9 +31,7 @@ public class TreeSort
         return root;
     }
     
-    public int getOperacoes(){
-        return op;
-    }
+    
  
     
     private <T extends Comparable<T>> void inserir(T chave, int ordem)
@@ -130,14 +128,15 @@ public class TreeSort
     
     
     
-    public <T extends Comparable <T>> void inserirArray(T arr[], int ordem)
+    public <T extends Comparable <T>> int inserirArray(T arr[], int ordem)
     {   
         this.ordem = ordem; //ordem = 1 -> crescente
         for(int i = 0; i < arr.length; i++)
         {
             inserir(arr[i], ordem);
         }
-         
+        
+        return op;   
     }
 }
  

@@ -17,7 +17,9 @@ import java.util.List;
 public class Main {
     public static <T extends Comparable<T>> void main(String[] args) {
         
+        heapSort(10, 1);
         
+        /*
         
         long start, elapsed;
         List<Long> timer = new ArrayList<>();
@@ -265,6 +267,7 @@ public class Main {
         
         System.out.println("----------------------------------------------------------");
         }
+        */
  
     }
 
@@ -337,6 +340,25 @@ public class Main {
         
         System.out.println("...");
     }
+    
+    public static <T extends Comparable<T>> void heapSort(int tamanho, int ordem){
+        Dado2[] arr = Leitor.leitor2(tamanho);
+        HeapSort hp = new HeapSort();
+        
+        System.out.println("Ordem Inicial Vetor com "+tamanho+" elementos\n\n");
+        for (int i = 0; i < 10; i++)
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
+        System.out.println("...\n\n");
+
+        hp.sort(arr, ordem);
+        
+        System.out.println("Após Chamado do HeapSort otimizado\n\n");
+        for (int i = 0; i < 10; i++)
+            System.out.println("Vetor[" + i + "]= " + arr[i].getChave());
+        System.out.println("...");
+    }
+    
+    
 
 
 
