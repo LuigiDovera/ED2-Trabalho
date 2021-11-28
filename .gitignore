@@ -1,3 +1,5 @@
 *.class
 ED2-Trabalho1/nbproject/private/private.properties
 ED2-Trabalho1/nbproject/private/private.properties
+*.class
+/ED2-Trabalho1/dist/

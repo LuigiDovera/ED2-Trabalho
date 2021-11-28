@@ -20,7 +20,7 @@ import java.util.List;
 public class Utils {
     
     static public double mediaAritimetica(List<Long> objetos) {
-	double somatorio = 0l;
+	double somatorio = 0;
 	for (Long d : objetos) {
 		somatorio += d;
 	}

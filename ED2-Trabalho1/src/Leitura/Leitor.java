@@ -66,10 +66,7 @@ public class Leitor {
             String linhas = new String();
             String linha2 = new String();
             
-            int[] vetor = new int[30];
-            linhas = leitor.nextLine();
-            
-            for(int i=0;i<quantidade;i++){
+            for(int i=0; i<quantidade; i++){
                 linhas = leitor.nextLine();
                 String[] linha = linhas.split(",");
                 Dado3 objeto = new Dado3(Double.parseDouble(linha[0]), Integer.parseInt(linha[1]));

@@ -25,7 +25,7 @@ public class HeapSort {
             }
 
             // One by one extract an element from heap
-            for (int i = n - 1; i > 0; i--) {
+            for (int i = n - 1; i >= 0; i--) {
                 // Move current root to end
                 Object temp = arr[0];
                 arr[0] = arr[i];
