@@ -55,8 +55,6 @@ public class TreeSort
             return node;
         }
  
-        /* Otherwise, recur
-        down the tree */
         
         if (node.objeto.compareTo(chave) >= 0)
             node.esq = inserirNodeCrescente(node.esq, chave);
@@ -77,9 +75,6 @@ public class TreeSort
             node = new Node(chave);
             return node;
         }
- 
-        /* Otherwise, recur
-        down the tree */
         
         if (node.objeto.compareTo(chave) < 0)
             node.esq = inserirNodeDecrescente(node.esq, chave);
@@ -87,7 +82,7 @@ public class TreeSort
             node.dir = inserirNodeDecrescente(node.dir, chave);
         
         op++;
-        /* return the root */
+        
         return node;
     }
     
