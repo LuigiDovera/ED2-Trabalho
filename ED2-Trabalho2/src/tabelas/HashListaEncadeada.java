@@ -11,7 +11,7 @@ package tabelas;
 import javax.swing.*;
 import java.util.*;
 
-public class HashListaEncadeada<Key, Value>{
+public class HashListaEncadeada<Key, Value> implements Estrutura<Key, Value>{
     private int N; // numero de pares de chaves na tabela
     private int M = 16; // Tamanho da tabela hash com tratamento linear
     private ListaEncadeada<Key, Value>[] lista;
@@ -77,11 +77,13 @@ public class HashListaEncadeada<Key, Value>{
         return get(key) != null;
     }
 
+    @Override
     public Value get(Key key){
         int i = hash(key);
         return lista[i].get(key);
     }
 
+    @Override
     public void put(Key key, Value val) {
        if (val == null){
            delete(key);

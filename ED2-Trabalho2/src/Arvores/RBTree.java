@@ -7,6 +7,8 @@ package Arvores;
 /**
  *
  * @author Matheus
+ * @param <Key>
+ * @param <Value>
  */
 public class RBTree<Key extends Comparable<Key>, Value> {
 
