@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,16 +22,20 @@ public class Termo<Key,Value> {
           throw new IllegalArgumentException();
      
       //Se não tiver nenhuma occorrencia
-      if( estrutura.get((Key) termo) == null){
-         
-        Map<String, Integer> doc_occ = new HashMap<>();
-        doc_occ.put(Documento,1);
-        
-        estrutura.put((Key)termo, (Value)doc_occ);
-        
-      }else{
+      Map<String, Integer> v = (Map<String, Integer>) estrutura.get((Key)termo);
+      if(v == null){
+          
+          Map<String, Integer> doc_occ = new HashMap<>();
+          doc_occ.put(Documento,1);
+          
+          estrutura.put((Key)termo, (Value)doc_occ);
+          
+      }else if (v.get(Documento) == null){
           //Se tiver ocorrecia
-          Map doc_occ = (Map) estrutura.get((Key)termo);
+          Map<String, Integer> doc_occ = (Map<String, Integer>) estrutura.get((Key)termo);
+          doc_occ.put(Documento,1);
+      }else{ 
+          Map<String, Integer> doc_occ = (Map<String, Integer>) estrutura.get((Key)termo);
           Integer Ocorrecias = (Integer) doc_occ.get(Documento);
           Ocorrecias++;
           doc_occ.put(Documento,Ocorrecias);
@@ -40,8 +43,23 @@ public class Termo<Key,Value> {
       
   }
   
+    public <T extends Estrutura<Key, Value>> Value  getFreq(String termo, T estrutura){
+        if(termo == null || estrutura == null){
+            throw new IllegalArgumentException();
+        }
+        return estrutura.get((Key)termo);
+    }
+    
   public <T extends Estrutura<Key, Value>> void readArrayDocuments(String [] documents, T estrutura){
-      
+     ArrayList<String> palavras;
+     int i=1;
+      for (String doc: documents){
+        palavras = split(doc);
+        for (String palavra: palavras){
+            putTermo(palavra,estrutura,Integer.toString(i));
+        }
+        i++;
+  }
       
       
   }
