@@ -5,3 +5,6 @@ ED2-Trabalho1/nbproject/private/private.properties
 /ED2-Trabalho1/dist/
 *.xml
 /ED2-Trabalho2/ED2-Trabalho2/nbproject/private/
+/ED2-Trabalho2/ED2-Trabalho2/build/
+ED2-Trabalho2/ED2-Trabalho2/nbproject/project.properties
+*.properties
