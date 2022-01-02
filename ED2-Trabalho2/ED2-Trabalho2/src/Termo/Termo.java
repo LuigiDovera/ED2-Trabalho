@@ -1,6 +1,10 @@
+package Termo;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 import tabelas.Estrutura;
 import tabelas.HashListaEncadeada;
 
@@ -47,16 +51,18 @@ public class Termo<Key,Value> {
         if(termo == null || estrutura == null){
             throw new IllegalArgumentException();
         }
+        
         return estrutura.get((Key)termo);
     }
     
-  public <T extends Estrutura<Key, Value>> void readArrayDocuments(String [] documents, T estrutura){
+    
+  public <T extends Estrutura<Key, Value>> void readArrayDocuments(List<String> documents,List<String> nomes, T estrutura, int C){
      ArrayList<String> palavras;
-     int i=1;
+     int i=0;
       for (String doc: documents){
         palavras = split(doc);
         for (String palavra: palavras){
-            putTermo(palavra,estrutura,Integer.toString(i));
+            putTermo(ResizeString(palavra, C).toLowerCase(),estrutura, nomes.get(i));
         }
         i++;
   }
@@ -64,6 +70,19 @@ public class Termo<Key,Value> {
       
   }
   
+  
+  public String ResizeString(String palavra, int C){
+      String newTermo = "";
+      char[] letras = palavra.toCharArray();
+      int i =0;
+      for (char letra : letras){
+          if(i==C)
+              break;
+          newTermo += letra;
+          i++;
+      }
+      return newTermo;
+  }
   public ArrayList<String> split(String s){
        int l=s.length();
        String word="";
@@ -76,17 +95,18 @@ public class Termo<Key,Value> {
                 word=word+ch;
             }
             else // if space is found print the previously formed word
-            {
+            {   
                 words.add(word);
                 word="";
             }
         }
         words.add(word);
+        
         return words;
   }
   
   
-  public void readDocument(String[] documents){
+  public void readDocument(String[] documents, int C){
       for (String doc : documents){
         ArrayList<String> words = split(doc);
         words.forEach(word -> {
