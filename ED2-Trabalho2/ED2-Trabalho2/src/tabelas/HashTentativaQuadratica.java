@@ -30,6 +30,7 @@ public class HashTentativaQuadratica<Key, Value> implements Estrutura<Key, Value
 	public HashTentativaQuadratica(int cap) {
 		keys = (Key[]) new Object[cap];
 		vals = (Value[]) new Object[cap];
+                stats = new boolean[cap];
 		M = cap;
 	}
 	
@@ -54,6 +55,7 @@ public class HashTentativaQuadratica<Key, Value> implements Estrutura<Key, Value
 				t.put(keys[i], vals[i]);
 		keys = t.keys;
 		vals = t.vals;
+                stats = t.stats;
 		M = t.M;
 		
 	}
@@ -67,6 +69,7 @@ public class HashTentativaQuadratica<Key, Value> implements Estrutura<Key, Value
 	 }
 
         
+    @Override
 	public void put(Key key, Value val){
 		int i;
 		int k = 0;

@@ -143,24 +143,25 @@ public class Termo<Key,Value> {
       Document doc;
       ArrayList<Document> WeigthedDoc = new ArrayList<Document>();
       for(String termo : termos){
-           System.out.println("termo:" + termo);
+           //System.out.println("termo:" + termo);
            map = (HashMap<String, Integer>) getFreq(termo, estrutura);
-           
-           System.out.println(map);
-           dj = map.size();
-           for(Map.Entry<String,Integer> pair : map.entrySet()){
-               System.out.println("Documento: " + pair.getKey());
-               n = DistTermPerDoc.get(pair.getKey());
-               f = pair.getValue();
-               w = WeightTermInDoc(dj, Ndoc, this.Ndoc);
-               System.out.println("n: " + n + " f : " + f + " w: " + w + " dj: " + dj + " ndoc: "+ this.Ndoc);
-               doc = findDoc(WeigthedDoc, pair.getKey());
-               if(doc != null){
-                   doc.setPeso(doc.getPeso()+w);
-               }else{
-                   WeigthedDoc.add(new Document(pair.getKey(), w, n));
-               }
-               
+           if(map != null){
+            //System.out.println(map);
+            dj = map.size();
+            for(Map.Entry<String,Integer> pair : map.entrySet()){
+                //System.out.println("Documento: " + pair.getKey());
+                n = DistTermPerDoc.get(pair.getKey());
+                f = pair.getValue();
+                w = WeightTermInDoc(dj, Ndoc, this.Ndoc);
+                //System.out.println("n: " + n + " f : " + f + " w: " + w + " dj: " + dj + " ndoc: "+ this.Ndoc);
+                doc = findDoc(WeigthedDoc, pair.getKey());
+                if(doc != null){
+                    doc.setPeso(doc.getPeso()+w);
+                }else{
+                    WeigthedDoc.add(new Document(pair.getKey(), w, n));
+                }
+
+            }
            }
       }
       

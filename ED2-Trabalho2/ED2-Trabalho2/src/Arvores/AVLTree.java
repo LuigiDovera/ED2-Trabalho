@@ -4,13 +4,15 @@
  */
 package Arvores;
 
+import tabelas.Estrutura;
+
 /**
  *
  * @author Matheus
  * @param <Key>
  * @param <Value>
  */
-public class AVLTree<Key extends Comparable<Key>, Value> {
+public class AVLTree<Key extends Comparable<Key>, Value> implements Estrutura<Key, Value>{
 
     private class Node {
         Key chave;

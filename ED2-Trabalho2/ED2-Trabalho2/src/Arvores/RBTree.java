@@ -4,13 +4,15 @@
  */
 package Arvores;
 
+import tabelas.Estrutura;
+
 /**
  *
  * @author Matheus
  * @param <Key>
  * @param <Value>
  */
-public class RBTree<Key extends Comparable<Key>, Value> {
+public class RBTree<Key extends Comparable<Key>, Value> implements Estrutura<Key, Value>{
 
 	protected static final boolean RED = true;
     protected static final boolean BLACK = false;
