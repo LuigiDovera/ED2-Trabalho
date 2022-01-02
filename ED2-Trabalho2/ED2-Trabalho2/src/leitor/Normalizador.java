@@ -1,18 +1,21 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package leitor;
 
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.text.Normalizer;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
- * @author Luigi
+ * @author Matheus
  */
 public class Normalizador {
-
+    
     public static List<String> normalizarParaLista(String string, int c) {
 
         List<String> palavras = new ArrayList<String>();
@@ -28,17 +31,17 @@ public class Normalizador {
 
         //transforma em lista
         palavras = split(string);
-
+         
         //rejeita palavras menores que c
         palavras = rejeitaPalavrasPequenas(palavras, c);
-
+        
         //rejeita palavras que começam com números
         palavras = rejeitaNumeros(palavras);
 
         return palavras;
     }
 
-    public static List<String> apenasCLetras(List<String> palavras, int c) {
+    public static List<String> apenasCLetras(List<String> palavras, int c, boolean removeIguais) {
 
         List<String> aux = palavras;
         palavras = new ArrayList<String>();
@@ -46,22 +49,28 @@ public class Normalizador {
         for (String palavra : aux) {
             String str = palavra;
             str = str.substring(0, c);
-
-            boolean palavraExiste = false;
-            for (String palavraCortada : palavras) {
-                if (palavraCortada.equals(str)) {
-                    palavraExiste = true;
-                    break;
-                }
-            }
             
-            if(!palavraExiste)
+            if(removeIguais){
+                boolean palavraExiste = false;
+                for (String palavraCortada : palavras) {
+                    if (palavraCortada.equals(str)) {
+                        palavraExiste = true;
+                        break;
+                    }
+                }
+            
+                if(!palavraExiste)
+                    palavras.add(str);
+            }else{
                 palavras.add(str);
-        }
+            }
+}
 
         return palavras;
     }
 
+    
+    
     private static String removerAcentuacao(String string) {
 
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
@@ -108,8 +117,10 @@ public class Normalizador {
         palavras = new ArrayList<String>();
 
         for (String palavra : aux) {
+            
             if (palavra.length() >= c) {
                 palavras.add(palavra);
+                
             }
         }
 

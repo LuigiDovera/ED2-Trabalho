@@ -1,10 +1,16 @@
 package Termo;
 
+import Arvores.RBTree.Iterator;
+import Document.ComparadordeDocumentos;
+import Document.Document;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
+import leitor.Normalizador;
 import tabelas.Estrutura;
 import tabelas.HashListaEncadeada;
 
@@ -20,7 +26,11 @@ import tabelas.HashListaEncadeada;
  * @param <Value>
  */
 public class Termo<Key,Value> {
-    
+       private int Ndoc;
+       
+  public Termo(){
+      this.Ndoc = 0;
+  }
   public <T extends Estrutura<Key, Value>> void  putTermo(String termo, T estrutura,String Documento){
       if(termo == null || estrutura ==  null)
           throw new IllegalArgumentException();
@@ -35,7 +45,7 @@ public class Termo<Key,Value> {
           estrutura.put((Key)termo, (Value)doc_occ);
           
       }else if (v.get(Documento) == null){
-          //Se tiver ocorrecia
+          //Se tiver ocorrecia 
           Map<String, Integer> doc_occ = (Map<String, Integer>) estrutura.get((Key)termo);
           doc_occ.put(Documento,1);
       }else{ 
@@ -56,21 +66,26 @@ public class Termo<Key,Value> {
     }
     
     
-  public <T extends Estrutura<Key, Value>> void readArrayDocuments(List<String> documents, List<String> nomes, T estrutura, int C){
-     ArrayList<String> palavras;
+  public <T extends Estrutura<Key, Value>> HashMap<String, Integer> readArrayDocuments(List<String> documents, List<String> nomes,int Ndoc, T estrutura, int C){
+     List<String> palavras;
+     HashMap<String, Integer> Doc_DistTerm = new HashMap();
      int i=0;
+     int sizeDisc;
       for (String doc: documents){
-          
-          
-        palavras = split(doc);
+        palavras = Normalizador.normalizarParaLista(doc, C);
+        palavras = Normalizador.apenasCLetras(palavras, C, false);
+        sizeDisc = Normalizador.apenasCLetras(palavras, C, true).size();
+        Doc_DistTerm.put(nomes.get(i), sizeDisc);
+        System.out.println("Doc: " + nomes.get(i));
         for (String palavra: palavras){
-            putTermo(ResizeString(palavra, C).toLowerCase(),estrutura, nomes.get(i));
+            System.out.println(palavra);
+            putTermo(palavra, estrutura, nomes.get(i));
         }
-        
-        
         i++;
   }
+      this.Ndoc = Ndoc;
       
+      return Doc_DistTerm;
       
   }
   
@@ -118,6 +133,58 @@ public class Termo<Key,Value> {
         });
       }
   }
+  
+  public ArrayList<Document> DocumentRL(List<String> termos, Estrutura estrutura, HashMap<String, Integer> DistTermPerDoc){
+      HashMap<String, Integer> map;
+      int n; // número de documentos na coleção que contém tj
+      int f; //número de documentos na coleção que contém tj
+      int dj; // número de documentos na coleção que contém tj
+      double w;
+      Document doc;
+      ArrayList<Document> WeigthedDoc = new ArrayList<Document>();
+      for(String termo : termos){
+           System.out.println("termo:" + termo);
+           map = (HashMap<String, Integer>) getFreq(termo, estrutura);
+           
+           System.out.println(map);
+           dj = map.size();
+           for(Map.Entry<String,Integer> pair : map.entrySet()){
+               System.out.println("Documento: " + pair.getKey());
+               n = DistTermPerDoc.get(pair.getKey());
+               f = pair.getValue();
+               w = WeightTermInDoc(dj, Ndoc, this.Ndoc);
+               System.out.println("n: " + n + " f : " + f + " w: " + w + " dj: " + dj + " ndoc: "+ this.Ndoc);
+               doc = findDoc(WeigthedDoc, pair.getKey());
+               if(doc != null){
+                   doc.setPeso(doc.getPeso()+w);
+               }else{
+                   WeigthedDoc.add(new Document(pair.getKey(), w, n));
+               }
+               
+           }
+      }
+      
+      for (Document docum: WeigthedDoc){
+          docum.setPeso(docum.getPeso()/docum.getdisTerm());
+      }
+      Collections.sort(WeigthedDoc, new ComparadordeDocumentos());
+      return WeigthedDoc;
+  }
+  
+  public Document findDoc(ArrayList<Document> lista, String nome){
+      for(Document doc : lista){
+          if (doc.getNome().equals(nome)){
+              return doc;
+          }
+      }
+      return null;
+  }
+  
+  
+  public double WeightTermInDoc(int dj, int Ocorrencias, int NDoc){
+      return Ocorrencias * ((Math.log(NDoc))/dj);
+  }
+  
 }
 
 

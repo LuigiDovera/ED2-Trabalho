@@ -16,12 +16,12 @@ public class BTree<Key extends Comparable<Key>, Value> implements Estrutura {
     
     
     
-    //private class Page(){
+    private class Page(){
         
         
-    //}
+    }
     
-    //private Page root = new Page(true);
+    private Page root = new Page(true);
     
     @Override
     public Object get(Object key) {
