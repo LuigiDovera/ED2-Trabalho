@@ -56,14 +56,18 @@ public class Termo<Key,Value> {
     }
     
     
-  public <T extends Estrutura<Key, Value>> void readArrayDocuments(List<String> documents,List<String> nomes, T estrutura, int C){
+  public <T extends Estrutura<Key, Value>> void readArrayDocuments(List<String> documents, List<String> nomes, T estrutura, int C){
      ArrayList<String> palavras;
      int i=0;
       for (String doc: documents){
+          
+          
         palavras = split(doc);
         for (String palavra: palavras){
             putTermo(ResizeString(palavra, C).toLowerCase(),estrutura, nomes.get(i));
         }
+        
+        
         i++;
   }
       

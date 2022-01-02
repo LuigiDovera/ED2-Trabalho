@@ -12,7 +12,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import jdk.jpackage.internal.IOUtils;
+//import jdk.jpackage.internal.IOUtils;
 import tabelas.Estrutura;
 
 
@@ -21,6 +21,7 @@ import tabelas.Estrutura;
  * @author Matheus
  */
 public class LeitorDoc<Key, Value> {
+    
     public static String lerDoc(File Nome) throws FileNotFoundException{
         String docString = "";
         Scanner in = new Scanner(Nome);
