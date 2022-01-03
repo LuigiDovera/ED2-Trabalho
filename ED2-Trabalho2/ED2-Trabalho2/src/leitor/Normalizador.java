@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * @author Matheus
  */
 public class Normalizador {
-    
+
     public static List<String> normalizarParaLista(String string, int c) {
 
         List<String> palavras = new ArrayList<String>();
@@ -31,10 +31,10 @@ public class Normalizador {
 
         //transforma em lista
         palavras = split(string);
-         
+
         //rejeita palavras menores que c
         palavras = rejeitaPalavrasPequenas(palavras, c);
-        
+
         //rejeita palavras que começam com números
         palavras = rejeitaNumeros(palavras);
 
@@ -49,8 +49,8 @@ public class Normalizador {
         for (String palavra : aux) {
             String str = palavra;
             str = str.substring(0, c);
-            
-            if(removeIguais){
+
+            if (removeIguais) {
                 boolean palavraExiste = false;
                 for (String palavraCortada : palavras) {
                     if (palavraCortada.equals(str)) {
@@ -58,19 +58,18 @@ public class Normalizador {
                         break;
                     }
                 }
-            
-                if(!palavraExiste)
+
+                if (!palavraExiste) {
                     palavras.add(str);
-            }else{
+                }
+            } else {
                 palavras.add(str);
             }
-}
+        }
 
         return palavras;
     }
 
-    
-    
     private static String removerAcentuacao(String string) {
 
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
@@ -117,10 +116,10 @@ public class Normalizador {
         palavras = new ArrayList<String>();
 
         for (String palavra : aux) {
-            
+
             if (palavra.length() >= c) {
                 palavras.add(palavra);
-                
+
             }
         }
 

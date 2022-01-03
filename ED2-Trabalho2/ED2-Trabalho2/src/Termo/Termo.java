@@ -76,9 +76,8 @@ public class Termo<Key,Value> {
         palavras = Normalizador.apenasCLetras(palavras, C, false);
         sizeDisc = Normalizador.apenasCLetras(palavras, C, true).size();
         Doc_DistTerm.put(nomes.get(i), sizeDisc);
-        System.out.println("Doc: " + nomes.get(i));
+        //System.out.println("Doc: " + nomes.get(i));
         for (String palavra: palavras){
-            System.out.println(palavra);
             putTermo(palavra, estrutura, nomes.get(i));
         }
         i++;

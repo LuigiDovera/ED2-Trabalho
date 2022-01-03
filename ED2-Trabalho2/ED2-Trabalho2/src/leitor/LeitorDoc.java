@@ -13,39 +13,81 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import jdk.jpackage.internal.IOUtils;
+//import jdk.jpackage.internal.IOUtils;
 import tabelas.Estrutura;
-
+import leitor.Normalizador;
+import java.util.Collections;
 
 /**
  *
  * @author Matheus
  */
 public class LeitorDoc<Key, Value> {
-    
-    public static String lerDoc(File Nome) throws FileNotFoundException{
+
+    public static String lerDoc(File Nome) throws FileNotFoundException {
         String docString = "";
         Scanner in = new Scanner(Nome);
-        while(in.hasNextLine()){
+        while (in.hasNextLine()) {
             docString += in.nextLine();
         }
         return docString;
     }
-    
-    public <T extends Estrutura<Key, Value>>  HashMap<String, Integer> findAllFilesInFolder(File folder, Estrutura estrutura, Termo t, int C) throws FileNotFoundException{
+
+    public <T extends Estrutura<Key, Value>> HashMap<String, Integer> findAllFilesInFolder(File folder, Estrutura estrutura, Termo t, int C) throws FileNotFoundException {
         List<String> doc_names = new ArrayList<String>();
         List<String> doc_content = new ArrayList<String>();
-        int Ndoc=0;
+        int Ndoc = 0;
         for (File file : folder.listFiles()) {
             if (!file.isDirectory()) {
                 doc_names.add(file.getName());
                 doc_content.add(lerDoc(file));
                 Ndoc++;
             } else {
-                    findAllFilesInFolder(file, estrutura,t, C);
+                findAllFilesInFolder(file, estrutura, t, C);
             }
         }
-       return t.readArrayDocuments(doc_content, doc_names,Ndoc, estrutura, C);
+        return t.readArrayDocuments(doc_content, doc_names, Ndoc, estrutura, C);
     }
-    
+
+    public <T extends Estrutura<Key, Value>> List<String> findAllFilesInFolder(File folder, int C) throws FileNotFoundException {
+        List<String> doc_names = new ArrayList<String>();
+        List<String> doc_content = new ArrayList<String>();
+        List<String> palavras = new ArrayList<String>();
+        List<String> aux;
+        int Ndoc = 0;
+        for (File file : folder.listFiles()) {
+            if (!file.isDirectory()) {
+                doc_names.add(file.getName());
+                doc_content.add(lerDoc(file));
+                Ndoc++;
+            } else {
+                findAllFilesInFolder(file, C);
+            }
+        }
+
+        for (String doc : doc_content) {
+            palavras.addAll(Normalizador.apenasCLetras(Normalizador.normalizarParaLista(doc, C), C, true));
+        }
+
+        aux = palavras;
+        palavras = new ArrayList<String>();
+        for (String palavra : aux) {
+            boolean palavraExiste = false;
+            for (String palavraUnica : palavras) {
+                if (palavraUnica.equals(palavra)) {
+                    palavraExiste = true;
+                    break;
+                }
+            }
+            if (!palavraExiste) {
+                palavras.add(palavra);
+            }
+
+        }
+
+        java.util.Collections.sort(palavras);
+
+        return palavras;
+    }
+
 }

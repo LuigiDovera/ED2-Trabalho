@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 import tabelas.HashListaEncadeada;
 import leitor.LeitorDoc;
+import leitor.Normalizador;
 import tabelas.Estrutura;
 import tabelas.HashTentativaQuadratica;
 
@@ -117,15 +118,19 @@ public class Main {
         C = resposta;
         File folder = new File(dir);
         HashMap<String, Integer> DistTermperDoc = doc_scan.findAllFilesInFolder(folder, table,t, C);
-        menu3(DistTermperDoc,t, table);
+        menu3(DistTermperDoc,t, table, C, folder);
        
     }
     
-    public static void menu3(HashMap<String,Integer> DistTermperDoc, Termo t, Estrutura estrutura){
+    public static void menu3(HashMap<String,Integer> DistTermperDoc, Termo t, Estrutura estrutura, int C, File folder) throws FileNotFoundException{
+        List<String> TermosSeparados, TermosNormalizados;
+        LeitorDoc doc_scan = new LeitorDoc();
+        String termo;
         String menu3 ="\n                  ====================================\n";
         menu3 += "                  |     1 - Buscar Indice Inverso de termo   |\n"; 
         menu3 += "                  |     2 - Buscar Documento por termo(s)    |\n";
-        menu3 += "                  |     3 - Sair                             |\n";
+        menu3 += "                  |     3 - Listagem com Indice Invertido    |\n";
+        menu3 += "                  |     4 - Sair                             |\n";
         boolean sair = false;
         do{
         System.out.print(menu3);
@@ -135,22 +140,31 @@ public class Main {
             switch(resposta){
                 case 1:
                     System.out.print("Digite o Termo:\n");
-                    String termo = leitor.next();
-                    System.out.print("freq:" +  t.getFreq(termo, estrutura));
+                    termo = leitor.next();
+                    TermosSeparados = Normalizador.normalizarParaLista(termo, C);
+                    TermosNormalizados = Normalizador.apenasCLetras(TermosSeparados, C, false);
+                    System.out.print("freq:" +  t.getFreq(TermosNormalizados.get(0), estrutura));
                     break;
                 case 2:
                     System.out.print("Digite os termos separados por espaço:" );
                     String termos;
-                    ArrayList<String> TermosSeparados;
                     leitor.nextLine();
                     termos = leitor.nextLine();
-                    TermosSeparados = t.split(termos);
-                    ArrayList<Document> documentos = t.DocumentRL(TermosSeparados, estrutura, DistTermperDoc);
+                    TermosSeparados = Normalizador.normalizarParaLista(termos, C);
+                    TermosNormalizados = Normalizador.apenasCLetras(TermosSeparados, C, false);
+                    ArrayList<Document> documentos = t.DocumentRL(TermosNormalizados, estrutura, DistTermperDoc);
                     for(Document doc : documentos){
                         System.out.print("Nome: " + doc.getNome() + " Peso: " + doc.getPeso()+"\n");
                     }     
                     break;
                 case 3:
+                    TermosNormalizados = doc_scan.findAllFilesInFolder(folder, C);
+                    
+                    for(String palavra : TermosNormalizados){
+                        System.out.println("termo: " + palavra + "\t freq: " +  t.getFreq(palavra, estrutura));
+                    }     
+                    break;
+                case 4:
                     sair = true;
                     break;
                 default: 
